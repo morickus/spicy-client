@@ -1,0 +1,56 @@
+.h1 {
+  font-family: EB Garamond, 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 47px;
+}
+
+.h2 {
+  font-family: EB Garamond, 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 31px;
+}
+
+.h3 {
+  font-family: EB Garamond, 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 31px;
+}
+
+.h4 {
+  font-family: EB Garamond, 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.categories {
+  gap: 8px;
+  display: flex;
+
+  & > div {
+    display: flex;
+    align-items: center;
+
+    a {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 17px;
+      color: var(--grey-secondary-color);
+      transition: color 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+
+      &:hover {
+        color: var(--acent-primary-color);
+      }
+    }
+
+    &:not(:last-child):after {
+      content: '• ';
+      font-size: 14px;
+      margin-left: 8px;
+      color: var(--grey-secondary-color);
+    }
+  }
+}

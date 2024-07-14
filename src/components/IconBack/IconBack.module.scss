@@ -1,0 +1,26 @@
+.title {
+  font-size: 36px;
+}
+
+.root {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+
+  .icon {
+    width: 54px;
+    height: 51px;
+    display: flex;
+    min-width: 54px;
+    margin-right: 15px;
+    align-items: center;
+    border-radius: 10px;
+    transform: rotate(180deg);
+    justify-content: center;
+    background: var(--dark-average-color);
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 15px;
+  }
+}

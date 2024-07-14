@@ -1,0 +1,133 @@
+.root {
+  padding-right: 20px;
+
+  @media (min-width: 769px) {
+    top: 85px;
+    position: sticky;
+    height: min-content;
+  }
+}
+
+.header {
+  & > div {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: flex;
+    }
+  }
+
+  .title {
+    margin-bottom: 15px;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+.categories {
+  gap: 15px;
+  display: flex;
+  padding-bottom: 20px;
+  flex-direction: column;
+  border-bottom: 1px solid var(--grey-secondary-color);
+
+  &__item {
+    width: 200px;
+    display: flex;
+    padding: 5px 10px;
+    border-radius: 10px;
+    align-content: center;
+    justify-content: space-between;
+    transition: background 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+
+    &:hover {
+      background: var(--dark-average-color);
+    }
+
+    &_active {
+      background: var(--dark-average-color);
+    }
+
+    span {
+      font-size: 14px;
+      line-height: 21px;
+      letter-spacing: -0.03em;
+    }
+
+    span:last-child {
+      text-align: right;
+      color: var(--grey-secondary-color);
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0 15px 10px;
+
+  a, span {
+    font-size: 12px;
+    line-height: 21px;
+  }
+
+  span {
+    color: var(--grey-secondary-color);
+  }
+
+  a {
+    color: var(--acent-primary-color);
+
+    &:hover {
+      color: var(--white-color);
+    }
+  }
+}
+
+.button {
+  top: 15px;
+  display: flex;
+  cursor: pointer;
+  position: sticky;
+  align-items: center;
+  margin-bottom: 50px;
+  border-radius: 10px;
+  padding: 10px 10px 10px 15px;
+  justify-content: space-between;
+  background: var(--dark-average-color);
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+}
+
+.sider-mobile {
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  position: fixed;
+  transform: translateX(100%);
+  background: var(--dark-secondary-color);
+  transition: transform 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+
+  & > div:nth-child(2) {
+    padding: 30px 20px;
+  }
+
+  &_open {
+    transform: translateX(0);
+  }
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+}
