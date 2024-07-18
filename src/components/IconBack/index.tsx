@@ -1,8 +1,9 @@
 import Icon from '@/components/Icon';
+import { useRoute } from '@/context/RouteContext';
 import stylesMain from '@/styles/Main.module.scss';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC } from 'react';
 import styles from './IconBack.module.scss';
 
 interface IconBackProps {
@@ -12,16 +13,10 @@ interface IconBackProps {
 
 const IconBack:FC<IconBackProps> = ({ title, onClick }) => {
   const router = useRouter();
-  const prevUrlRef = useRef('');
-
-  useEffect(() => {
-    prevUrlRef.current = document.referrer;
-    console.log('document.referrer ',document.referrer);
-  }, []);
+  const { previousUrl } = useRoute();
 
   const handleBack = () => {
-    const prevUrl = prevUrlRef.current;
-    if (prevUrl && prevUrl.includes(window.location.host)) {
+    if (previousUrl && previousUrl !== window.location.pathname) {
       router.back();
     } else {
       router.push('/');
