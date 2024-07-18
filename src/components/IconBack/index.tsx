@@ -16,6 +16,7 @@ const IconBack:FC<IconBackProps> = ({ title, onClick }) => {
 
   useEffect(() => {
     prevUrlRef.current = document.referrer;
+    console.log('document.referrer ',document.referrer);
   }, []);
 
   const handleBack = () => {
