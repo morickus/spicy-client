@@ -12,7 +12,7 @@ const ArticleCard: FC<ArticleAllResponseDto> = ({ slug, title, excerpt, categori
     <div className={styles.root}>
       <Link href={`/article/${slug}`} className={styles.content}>
         <p className={classNames(stylesMain.h2, styles.title)}>{title}</p>
-        <p className={styles.text}>{excerpt}</p>
+        <p className={styles.text} dangerouslySetInnerHTML={{ __html: excerpt }} />
       </Link>
       {categories && (
         <div className={stylesMain.categories}>
