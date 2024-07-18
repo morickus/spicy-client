@@ -27,6 +27,7 @@ function App({ Component, pageProps }: AppProps<PageProps>) {
       </Head>
       <DefaultSeo
         title="Spicy – Erotic & Porn Stories for Adults"
+        canonical={process.env.NEXT_PUBLIC_API_DOMAIN}
         description="Spicy – Exciting and Erotic & Porn Stories for Adults. Read the best erotic stories for free."
         additionalMetaTags={[
           {

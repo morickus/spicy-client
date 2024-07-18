@@ -47,7 +47,7 @@ const Sider: FC<SiderProps> = ({ onClose }) => {
       </div>
       <footer className={styles.footer}>
         <span>© {new Date().getFullYear()} Spicy</span>
-        <Link href="/">Privacy policy</Link>
+        {/*<Link href="/">Privacy policy</Link>*/}
         <div>
           <span>For info: </span>
           <Link href="mailto:info@spicy.pub">info@spicy.pub</Link>

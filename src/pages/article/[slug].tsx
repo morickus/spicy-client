@@ -31,6 +31,16 @@ const ArticlePage = () => {
       <NextSeo
         title={`${data.title} | Spicy.Pub – Erotic & Porn Stories for Adults`}
         description={data.excerpt}
+        canonical={`${process.env.NEXT_PUBLIC_API_DOMAIN}article/${slug}`}
+        openGraph={{
+          type: 'article',
+          url: `${process.env.NEXT_PUBLIC_API_DOMAIN}article/${slug}`,
+          article: {
+            publishedTime: data.createdAt,
+            modifiedTime: data.updatedAt,
+            tags: data.categories.map(i => i.name)
+          }
+        }}
       />
       <article className={styles.root}>
         <IconBack title={data.title} />
