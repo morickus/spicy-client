@@ -4,9 +4,13 @@ import { articlesControllerFindOne } from '@/shared/api/generated';
 import styles from '@/styles/Home.module.scss';
 import stylesMain from '@/styles/Main.module.scss';
 import { useQuery } from '@tanstack/react-query';
+import { format } from 'date-fns';
+import { enUS } from 'date-fns/locale';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { ArticleJsonLd } from 'next-seo';
+import { BreadcrumbJsonLd } from 'next-seo';
 import React from 'react';
 
 const ArticlePage = () => {
@@ -36,11 +40,39 @@ const ArticlePage = () => {
           type: 'article',
           url: `${process.env.NEXT_PUBLIC_API_DOMAIN}article/${slug}`,
           article: {
-            publishedTime: data.createdAt,
-            modifiedTime: data.updatedAt,
+            publishedTime: format(new Date(data.createdAt), 'MMMM dd, yyyy, hh:mm a', { locale: enUS }),
+            modifiedTime: format(new Date(data.updatedAt), 'MMMM dd, yyyy, hh:mm a', { locale: enUS }),
             tags: data.categories.map(i => i.name)
           }
         }}
+      />
+      <ArticleJsonLd
+        type="Article"
+        title={data.title}
+        description={data.excerpt}
+        url={`${process.env.NEXT_PUBLIC_API_DOMAIN}article`}
+        images={[]}
+        datePublished={format(new Date(data.createdAt), 'MMMM dd, yyyy, hh:mm a', { locale: enUS })}
+        dateModified={format(new Date(data.updatedAt), 'MMMM dd, yyyy, hh:mm a', { locale: enUS })}
+        authorName={[
+          {
+            type: 'Organization',
+            name: 'Spicy.Pub',
+            url: process.env.NEXT_PUBLIC_API_DOMAIN,
+          }
+        ]}
+        publisherName="Spicy.Pub"
+        publisherLogo={`${process.env.NEXT_PUBLIC_API_DOMAIN}favicon.ico`}
+        isAccessibleForFree={true}
+      />
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: 'Article',
+            item: `${process.env.NEXT_PUBLIC_API_DOMAIN}article`,
+          }
+        ]}
       />
       <article className={styles.root}>
         <IconBack title={data.title} />
