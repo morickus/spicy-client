@@ -6,7 +6,6 @@ import SiderMobile from '@/features/sider/ui/SiderMobile';
 import Pagination from '@/shared/ui/Pagination';
 import TitleBack from '@/shared/ui/TitleBack';
 import styled from '@emotion/styled';
-import { notFound } from 'next/navigation';
 import React, { FC } from 'react';
 
 interface ArticlesByCategoryProps {
@@ -18,7 +17,7 @@ const ArticlesByCategory: FC<ArticlesByCategoryProps> = ({ slug, title }) => {
   const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useArticlesByCategory(slug);
 
-  if (error instanceof Error) return notFound();
+  if (error instanceof Error) return <div>Error: {error.message}</div>;
 
   if (!data) return;
 
