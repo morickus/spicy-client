@@ -6,6 +6,7 @@ import TitleBack from '@/shared/ui/TitleBack';
 import styled from '@emotion/styled';
 import { format } from 'date-fns';
 import { enUS } from 'date-fns/locale';
+import { notFound } from 'next/navigation';
 import React, { FC } from 'react';
 
 interface ArticleProps {
@@ -15,7 +16,7 @@ interface ArticleProps {
 const Article: FC<ArticleProps> = ({ slug }) => {
   const { data, error } = useArticle(slug);
 
-  if (error instanceof Error) return <div>Error: {error.message}</div>;
+  if (error instanceof Error) return notFound();
 
   if (!data) return;
 

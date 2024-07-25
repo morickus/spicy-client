@@ -3,24 +3,29 @@ import { ROUTES } from '@/shared/constants/routes';
 import Article from '@/views/article';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import type { Metadata, ResolvingMetadata } from 'next';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata(
   { params: { slug } }: { params: { slug: string } },
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const article = await articlesControllerFindOne(slug);
-  const previousOpenGraph = (await parent).openGraph || {};
+  try {
+    const article = await articlesControllerFindOne(slug);
+    const previousOpenGraph = (await parent).openGraph || {};
 
-  return {
-    title: article.title,
-    description: article.excerpt,
-    openGraph: {
-      ...previousOpenGraph,
+    return {
       title: article.title,
       description: article.excerpt,
-      url: ROUTES.ARTICLES.BY_SLUG(slug),
-    },
-  };
+      openGraph: {
+        ...previousOpenGraph,
+        title: article.title,
+        description: article.excerpt,
+        url: ROUTES.ARTICLES.BY_SLUG(slug),
+      },
+    };
+  } catch (error) {
+    notFound();
+  }
 }
 
 const ArticlePage = async ({ params: { slug } }: { params: { slug: string } }) => {
