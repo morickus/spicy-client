@@ -32,7 +32,7 @@ const Article: FC<ArticleProps> = ({ slug }) => {
       {
         type: 'Organization',
         name: 'Spicy.pub',
-        url: process.env.NEXT_PUBLIC_API_DOMAIN,
+        url: process.env.NEXT_PUBLIC_DOMAIN,
       },
     ],
     publisher: {

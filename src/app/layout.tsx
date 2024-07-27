@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_API_DOMAIN || 'https://spicy.pub'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_DOMAIN || 'https://spicy.pub'),
   keywords: [
     'erotic stories',
     'porn stories',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     siteName: 'Spicy.pub',
-    url: process.env.NEXT_PUBLIC_API_DOMAIN,
+    url: process.env.NEXT_PUBLIC_DOMAIN,
     title: {
       template: '%s | Spicy.pub – Erotic Stories for Adults',
       default: 'Spicy.pub – Erotic Stories for Adults',
@@ -43,11 +43,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  console.log('NODE_ENV=', process.env.NODE_ENV);
-
   return (
     <html lang="en">
-      {process.env.NODE_ENV == 'production' && <GoogleTagManager gtmId="GTM-K6JB9R7H" />}
+      {process.env.APP_ENV == 'production' && <GoogleTagManager gtmId="GTM-K6JB9R7H" />}
       <body className={inter.className}>
         <NextTopLoader color="#6FFF2B" height={1} showSpinner={false} />
         <QueryProvider>

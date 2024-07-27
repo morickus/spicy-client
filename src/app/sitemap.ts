@@ -33,7 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const categories = (await categoriesControllerFindAll()) || [];
     const articles = await getAllArticles();
-    const URL = process.env.NEXT_PUBLIC_API_DOMAIN || 'https://spicy.pub';
+    const URL = process.env.NEXT_PUBLIC_DOMAIN || 'https://spicy.pub';
 
     const categoriesRoutes = categories.map(({ slug }) => ({
       url: `${URL}/category/${slug}`,
