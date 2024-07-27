@@ -43,6 +43,8 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  console.log('NODE_ENV=', process.env.NODE_ENV);
+
   return (
     <html lang="en">
       {process.env.NODE_ENV == 'production' && <GoogleTagManager gtmId="GTM-K6JB9R7H" />}
