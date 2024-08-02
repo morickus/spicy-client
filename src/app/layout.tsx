@@ -20,6 +20,9 @@ export const metadata: Metadata = {
     icon: '/favicon.ico',
   },
   metadataBase: new URL(process.env.NEXT_PUBLIC_DOMAIN || 'https://spicy.pub'),
+  alternates: {
+    canonical: './',
+  },
   keywords: [
     'erotic stories',
     'porn stories',

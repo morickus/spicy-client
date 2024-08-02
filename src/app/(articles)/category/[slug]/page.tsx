@@ -1,6 +1,5 @@
 import getCategoryTitle from '@/entities/category/model/getCategoryTitle';
 import { articlesControllerFindByCategory } from '@/shared/api/generated';
-import { ROUTES } from '@/shared/constants/routes';
 import ArticlesByCategory from '@/views/articles-by-category';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import type { Metadata, ResolvingMetadata } from 'next';
@@ -17,7 +16,7 @@ export async function generateMetadata(
     openGraph: {
       ...previousOpenGraph,
       title,
-      url: ROUTES.ARTICLES.BY_CATEGORY(slug),
+      url: './',
     },
   };
 }

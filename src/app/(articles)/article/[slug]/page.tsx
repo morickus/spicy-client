@@ -1,5 +1,4 @@
 import { articlesControllerFindOne } from '@/shared/api/generated';
-import { ROUTES } from '@/shared/constants/routes';
 import Article from '@/views/article';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import type { Metadata, ResolvingMetadata } from 'next';
@@ -20,7 +19,7 @@ export async function generateMetadata(
         ...previousOpenGraph,
         title: article.title,
         description: article.excerpt,
-        url: ROUTES.ARTICLES.BY_SLUG(slug),
+        url: './',
       },
     };
   } catch (error) {
