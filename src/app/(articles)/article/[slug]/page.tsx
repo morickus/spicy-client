@@ -14,11 +14,11 @@ export async function generateMetadata(
 
     return {
       title: article.title,
-      description: article.excerpt,
+      description: article.metaDescription || article.excerpt,
       openGraph: {
         ...previousOpenGraph,
         title: article.title,
-        description: article.excerpt,
+        description: article.metaDescription || article.excerpt,
         url: './',
       },
     };

@@ -1,5 +1,7 @@
-import getCategoryTitle from '@/entities/category/model/getCategoryTitle';
-import { articlesControllerFindByCategory } from '@/shared/api/generated';
+import {
+  articlesControllerFindByCategory,
+  categoriesControllerFindOne,
+} from '@/shared/api/generated';
 import ArticlesByCategory from '@/views/articles-by-category';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import type { Metadata, ResolvingMetadata } from 'next';
@@ -8,14 +10,17 @@ export async function generateMetadata(
   { params: { slug } }: { params: { slug: string } },
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const title = await getCategoryTitle(slug);
+  const category = await categoriesControllerFindOne(slug);
+  const { name, metaDescription } = category;
   const previousOpenGraph = (await parent).openGraph || {};
 
   return {
-    title,
+    title: name,
+    ...(metaDescription && { description: metaDescription }),
     openGraph: {
       ...previousOpenGraph,
-      title,
+      title: name,
+      ...(metaDescription && { description: metaDescription }),
       url: './',
     },
   };
@@ -30,11 +35,11 @@ const ArticlesByCategoryPage = async ({ params: { slug } }: { params: { slug: st
     initialPageParam: 1,
   });
 
-  const title = await getCategoryTitle(slug);
+  const category = await categoriesControllerFindOne(slug);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ArticlesByCategory slug={slug} title={title} />
+      <ArticlesByCategory slug={slug} title={category.name || 'Category'} />
     </HydrationBoundary>
   );
 };

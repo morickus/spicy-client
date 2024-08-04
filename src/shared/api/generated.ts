@@ -46,6 +46,7 @@ export interface JsonContentDto {
 export interface UpdateArticleDto {
   categories?: string[];
   content?: JsonContentDto[];
+  metaDescription?: string;
   title?: string;
 }
 
@@ -57,6 +58,7 @@ export interface ArticleResponseDto {
   createdAt: string;
   excerpt: string;
   id: number;
+  metaDescription?: string;
   slug: string;
   title: string;
   updatedAt: string;
@@ -72,21 +74,25 @@ export type ArticlesControllerFindByCategory200 = ArticlesControllerFindByCatego
 export interface CreateArticleDto {
   categories: string[];
   content: JsonContentDto[];
+  metaDescription?: string;
   title: string;
 }
 
 export interface UpdateCategoryDto {
-  name: string;
+  metaDescription?: string;
+  name?: string;
 }
 
 export interface CategoryResponseDto {
   countArticles: number;
   id: number;
+  metaDescription?: string;
   name: string;
   slug: string;
 }
 
 export interface CreateCategoryDto {
+  metaDescription?: string;
   name: string;
 }
 
@@ -102,6 +108,7 @@ export interface ArticleAllResponseDto {
   createdAt: string;
   excerpt: string;
   id: number;
+  metaDescription?: string;
   slug: string;
   title: string;
   updatedAt: string;
@@ -111,6 +118,7 @@ export interface PaginateResponseDto {
   currentPage: number;
   hasNext: boolean;
   hasPrev: boolean;
+  limitPage: number;
   totalPages: number;
 }
 
@@ -209,7 +217,7 @@ export const categoriesControllerUpdate = (
   return createInstance<CategoryResponseDto>(
     {
       url: `/categories/${id}`,
-      method: 'PUT',
+      method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       data: updateCategoryDto,
     },
@@ -223,6 +231,16 @@ export const categoriesControllerDelete = (
 ) => {
   return createInstance<CategoryResponseDto>(
     { url: `/categories/${id}`, method: 'DELETE' },
+    options,
+  );
+};
+
+export const categoriesControllerFindOne = (
+  slug: string,
+  options?: SecondParameter<typeof createInstance>,
+) => {
+  return createInstance<CategoryResponseDto>(
+    { url: `/categories/${slug}`, method: 'GET' },
     options,
   );
 };
@@ -250,10 +268,6 @@ export const articlesControllerFindAll = (
     { url: `/articles`, method: 'GET', params },
     options,
   );
-};
-
-export const articlesControllerCreateMany = (options?: SecondParameter<typeof createInstance>) => {
-  return createInstance<void>({ url: `/articles/init`, method: 'POST' }, options);
 };
 
 export const articlesControllerUpdate = (
@@ -324,14 +338,14 @@ export type CategoriesControllerUpdateResult = NonNullable<
 export type CategoriesControllerDeleteResult = NonNullable<
   Awaited<ReturnType<typeof categoriesControllerDelete>>
 >;
+export type CategoriesControllerFindOneResult = NonNullable<
+  Awaited<ReturnType<typeof categoriesControllerFindOne>>
+>;
 export type ArticlesControllerCreateResult = NonNullable<
   Awaited<ReturnType<typeof articlesControllerCreate>>
 >;
 export type ArticlesControllerFindAllResult = NonNullable<
   Awaited<ReturnType<typeof articlesControllerFindAll>>
->;
-export type ArticlesControllerCreateManyResult = NonNullable<
-  Awaited<ReturnType<typeof articlesControllerCreateMany>>
 >;
 export type ArticlesControllerUpdateResult = NonNullable<
   Awaited<ReturnType<typeof articlesControllerUpdate>>

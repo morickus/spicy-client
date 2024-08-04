@@ -117,7 +117,7 @@ paths:
       tags:
         - Categories
   /categories/{id}:
-    put:
+    patch:
       operationId: CategoriesController_update
       parameters:
         - name: id
@@ -148,6 +148,24 @@ paths:
           in: path
           schema:
             type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponseDto'
+      tags:
+        - Categories
+  /categories/{slug}:
+    get:
+      operationId: CategoriesController_findOne
+      parameters:
+        - name: slug
+          required: true
+          in: path
+          schema:
+            type: string
       responses:
         '200':
           description: ''
@@ -204,15 +222,6 @@ paths:
                         items:
                           $ref: '#/components/schemas/ArticleAllResponseDto'
                   - $ref: '#/components/schemas/PaginateResponseDto'
-      tags:
-        - Articles
-  /articles/init:
-    post:
-      operationId: ArticlesController_createMany
-      parameters: []
-      responses:
-        '201':
-          description: ''
       tags:
         - Articles
   /articles/{id}:
@@ -365,6 +374,8 @@ components:
     PaginateResponseDto:
       type: object
       properties:
+        limitPage:
+          type: number
         totalPages:
           type: number
         currentPage:
@@ -374,6 +385,7 @@ components:
         hasNext:
           type: boolean
       required:
+        - limitPage
         - totalPages
         - currentPage
         - hasPrev
@@ -394,6 +406,8 @@ components:
         name:
           type: string
           example: category
+        metaDescription:
+          type: string
       required:
         - name
     CategoryResponseDto:
@@ -404,6 +418,8 @@ components:
         slug:
           type: string
         name:
+          type: string
+        metaDescription:
           type: string
         countArticles:
           type: number
@@ -418,8 +434,8 @@ components:
         name:
           type: string
           example: category
-      required:
-        - name
+        metaDescription:
+          type: string
     DataDto:
       type: object
       properties: {}
@@ -450,6 +466,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/JsonContentDto'
+        metaDescription:
+          type: string
         categories:
           example:
             - category
@@ -476,6 +494,8 @@ components:
         title:
           type: string
         excerpt:
+          type: string
+        metaDescription:
           type: string
         authorId:
           type: number
@@ -512,6 +532,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/JsonContentDto'
+        metaDescription:
+          type: string
         categories:
           example:
             - category1
@@ -535,6 +557,8 @@ components:
         title:
           type: string
         excerpt:
+          type: string
+        metaDescription:
           type: string
         authorId:
           type: number
