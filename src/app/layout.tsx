@@ -1,6 +1,11 @@
+import AntdThemeProvider from '@/app/_providers/antd-theme-provider';
+import EmotionThemeProvider from '@/app/_providers/emotion-theme-provider';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { GoogleTagManager } from '@next/third-parties/google';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Head from 'next/head';
 import NextTopLoader from 'nextjs-toploader';
 import React, { ReactNode } from 'react';
 import QueryProvider from './_providers/query-provider';
@@ -24,6 +29,8 @@ export const metadata: Metadata = {
     canonical: './',
   },
   keywords: [
+    'spicy',
+    'spicy.pub',
     'erotic stories',
     'porn stories',
     'hot content',
@@ -45,15 +52,30 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
-      {process.env.APP_ENV == 'production' && <GoogleTagManager gtmId="GTM-K6JB9R7H" />}
+      {process.env.APP_ENV == 'production' && (
+        <>
+          <Head>
+            <meta name="msvalidate.01" content="42DBF05596267DA853EC69216BA4816B" />
+          </Head>
+          <GoogleTagManager gtmId="GTM-K6JB9R7H" />
+        </>
+      )}
       <body className={inter.className}>
         <NextTopLoader color="#6FFF2B" height={1} showSpinner={false} />
-        <QueryProvider>
-          <RouteProvider>{children}</RouteProvider>
-        </QueryProvider>
+        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}>
+          <QueryProvider>
+            <RouteProvider>
+              <AntdRegistry>
+                <AntdThemeProvider>
+                  <EmotionThemeProvider>{children}</EmotionThemeProvider>
+                </AntdThemeProvider>
+              </AntdRegistry>
+            </RouteProvider>
+          </QueryProvider>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );

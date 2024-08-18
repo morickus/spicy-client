@@ -24,6 +24,7 @@ const Categories: FC<CategoriesProps> = ({ categories, articleSlug }) => {
 const CategoriesWrapper = styled.div`
   gap: 8px;
   display: flex;
+  flex-wrap: wrap;
 `;
 
 const CategoriesItem = styled.div`
