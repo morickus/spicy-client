@@ -2,7 +2,6 @@ import AntdThemeProvider from '@/app/_providers/antd-theme-provider';
 import EmotionThemeProvider from '@/app/_providers/emotion-theme-provider';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { GoogleTagManager } from '@next/third-parties/google';
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Head from 'next/head';
@@ -65,17 +64,15 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       )}
       <body className={inter.className}>
         <NextTopLoader color="#6FFF2B" height={1} showSpinner={false} />
-        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}>
-          <QueryProvider>
-            <RouteProvider>
-              <AntdRegistry>
-                <AntdThemeProvider>
-                  <EmotionThemeProvider>{children}</EmotionThemeProvider>
-                </AntdThemeProvider>
-              </AntdRegistry>
-            </RouteProvider>
-          </QueryProvider>
-        </GoogleOAuthProvider>
+        <QueryProvider>
+          <RouteProvider>
+            <AntdRegistry>
+              <AntdThemeProvider>
+                <EmotionThemeProvider>{children}</EmotionThemeProvider>
+              </AntdThemeProvider>
+            </AntdRegistry>
+          </RouteProvider>
+        </QueryProvider>
       </body>
     </html>
   );
