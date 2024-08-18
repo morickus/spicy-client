@@ -30,7 +30,7 @@ const ArticlesByCategoryPage = async ({ params: { slug } }: { params: { slug: st
   const queryClient = new QueryClient();
 
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ['articles-by-category'],
+    queryKey: [`articles-by-category`, slug],
     queryFn: ({ pageParam }) => articlesControllerFindByCategory(slug, { page: pageParam }),
     initialPageParam: 1,
   });

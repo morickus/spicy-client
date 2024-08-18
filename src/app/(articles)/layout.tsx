@@ -14,17 +14,19 @@ export default async function Layout({ children }: { children: ReactNode }) {
   });
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <div>
-        <Header />
-        <Body>
+    <div>
+      <Header />
+      <Body>
+        <HydrationBoundary state={dehydrate(queryClient)}>
           <Sider />
-          <Content>{children}</Content>
-        </Body>
-      </div>
-    </HydrationBoundary>
+        </HydrationBoundary>
+        <Content>{children}</Content>
+      </Body>
+    </div>
   );
 }
+
+export const revalidate = 60;
 
 const Body = styled.div`
   display: flex;
