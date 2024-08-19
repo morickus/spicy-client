@@ -57,7 +57,10 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       {process.env.APP_ENV == 'production' && (
         <>
           <Head>
-            <meta name="msvalidate.01" content="42DBF05596267DA853EC69216BA4816B" />
+            <link rel="preconnect" href="https://www.googletagmanager.com" />
+            <link rel="preconnect" href="https://www.google-analytics.com" />
+            <link rel="preconnect" href="https://mc.yandex.ru" />
+            {/*<meta name="msvalidate.01" content="42DBF05596267DA853EC69216BA4816B" />*/}
           </Head>
           <GoogleTagManager gtmId="GTM-K6JB9R7H" />
         </>

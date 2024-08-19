@@ -15,12 +15,6 @@ export const H1 = styled.h1`
   line-height: 47px;
 `;
 
-export const TitleP = styled.p`
-  ${BaseHeading};
-  font-size: 36px;
-  line-height: 47px;
-`;
-
 export const H2 = styled.h2`
   ${BaseHeading};
   font-size: 32px;
@@ -37,4 +31,16 @@ export const H4 = styled.h4`
   ${BaseHeading};
   font-size: 18px;
   line-height: 24px;
+`;
+
+export const TitleP = styled.p`
+  ${BaseHeading};
+  font-size: 36px;
+  line-height: 47px;
+`;
+
+export const TitleP3 = styled.p`
+  ${BaseHeading};
+  font-size: 24px;
+  line-height: 31px;
 `;

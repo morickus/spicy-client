@@ -3,7 +3,7 @@
 import { useCategories } from '@/entities/category/model/useCategories';
 import { CategoryList } from '@/entities/category/ui/CategoryList';
 import Footer from '@/features/footer/ui/Footer';
-import { H3 } from '@/shared/ui/Texts';
+import { TitleP3 } from '@/shared/ui/Texts';
 import styled from '@emotion/styled';
 import React from 'react';
 
@@ -36,7 +36,7 @@ const Root = styled.div`
   }
 `;
 
-const Title = styled(H3)`
+const Title = styled(TitleP3)`
   margin-bottom: 15px;
 `;
 
