@@ -1,25 +1,34 @@
 'use client';
 
-import { authControllerGetSessionInfo } from '@/shared/api/generated';
+import { useSession } from '@/features/auth/model/useSession';
 import { ROUTES } from '@/shared/constants/routes';
 import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
-import { Avatar } from 'antd';
-import { LogIn } from 'lucide-react';
+import type { MenuProps } from 'antd';
+import { Avatar, Dropdown } from 'antd';
+import { LogIn, LogOut } from 'lucide-react';
 import Link from 'next/link';
 
 const Header = () => {
-  const { data } = useQuery({
-    queryKey: ['session'],
-    queryFn: () => authControllerGetSessionInfo(),
-  });
+  const { session, logout } = useSession();
+
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      danger: true,
+      label: 'logout',
+      icon: <LogOut size={16} />,
+      onClick: () => logout({}),
+    },
+  ];
 
   return (
     <Root>
       <Container>
         <Logo href="/">spicy.pub</Logo>
-        {data ? (
-          <Avatar src="/avatar.png" shape="square" />
+        {session ? (
+          <Dropdown trigger={['click']} menu={{ items }} placement="bottomRight">
+            <StyledAvatar src="/avatar.png" shape="square" />
+          </Dropdown>
         ) : (
           <FlexLink href={ROUTES.AUTH.SIGN_UP}>
             <LogIn size={20} />
@@ -65,6 +74,10 @@ const Logo = styled(Link)`
 const FlexLink = styled(Link)`
   display: flex;
   color: #6fff2b;
+`;
+
+const StyledAvatar = styled(Avatar)`
+  cursor: pointer;
 `;
 
 export default Header;

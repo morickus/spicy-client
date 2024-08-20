@@ -13,6 +13,7 @@ type FieldType = {
 };
 
 const SignUpForm = () => {
+  const [form] = Form.useForm();
   const queryClient = useQueryClient();
   const router = useRouter();
   const { signUp, isPendingSignUp, isSuccessSignUp } = useSignUp();
@@ -27,6 +28,7 @@ const SignUpForm = () => {
 
   return (
     <Form
+      form={form}
       onFinish={isSuccessSignUp ? sendVerifyCode : signUp}
       layout="vertical"
       requiredMark={false}
@@ -61,6 +63,7 @@ const SignUpForm = () => {
               style={{ width: '100%' }}
               disabled={isPendingVerifyCode}
               formatter={(str) => str.toUpperCase()}
+              onChange={(v) => v.length == 6 && form.submit()}
             />
           </Form.Item>
         )}
