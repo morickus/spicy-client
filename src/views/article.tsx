@@ -1,9 +1,17 @@
 'use client';
 
 import { useArticle } from '@/entities/article/model/useArticle';
+import ArticleCard from '@/entities/article/ui/ArticleCard';
 import Categories from '@/entities/article/ui/Categories';
+import {
+  ArticleAllResponseDto,
+  articlesControllerFindAll,
+  articlesControllerGetRandomArticles,
+} from '@/shared/api/generated';
+import { H2 } from '@/shared/ui/Texts';
 import TitleBack from '@/shared/ui/TitleBack';
 import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import React, { FC } from 'react';
@@ -18,6 +26,27 @@ const Article: FC<ArticleProps> = ({ slug }) => {
   if (error instanceof Error) return <div>Error: {error.message}</div>;
 
   if (!data) return;
+
+  const tags = data.categories.map((c) => c.slug);
+  const { data: similarStories } = useQuery({
+    queryKey: ['articles', { tags }],
+    queryFn: () => articlesControllerFindAll({ limit: 5, tags }),
+  });
+
+  const { data: otherStories } = useQuery({
+    queryKey: ['articles-random', 5],
+    queryFn: () => articlesControllerGetRandomArticles({ count: 5 }),
+  });
+
+  const filterStories = (data: ArticleAllResponseDto[], limit: number) => {
+    return data.filter((item) => item.id !== 1).slice(0, limit);
+  };
+
+  const similar = similarStories?.data ? filterStories(similarStories.data, 4) : [];
+  const other = otherStories ? filterStories(otherStories, 4) : [];
+
+  const useSimilar = similar.length == 4;
+  const stories = useSimilar ? similar : other;
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -58,6 +87,16 @@ const Article: FC<ArticleProps> = ({ slug }) => {
           ))}
         </Text>
       </Content>
+      {(!!similar.length || !!other.length) && (
+        <Selection>
+          {useSimilar ? <H2>Similar</H2> : <H2>Other stories</H2>}
+          <div>
+            {stories.map((article) => (
+              <ArticleCard key={article.id} data={article} size="small" />
+            ))}
+          </div>
+        </Selection>
+      )}
     </Root>
   );
 };
@@ -83,6 +122,17 @@ const Paragraph = styled.p`
 
   &:not(:last-child) {
     margin-bottom: 16px;
+  }
+`;
+
+const Selection = styled.div`
+  margin-top: 45px;
+
+  & > div {
+    margin-top: 20px;
+
+    display: grid;
+    grid-gap: 30px;
   }
 `;
 

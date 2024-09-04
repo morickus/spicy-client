@@ -1,5 +1,4 @@
 import { CategoryResponseDto } from '@/shared/api/generated';
-import { ROUTES } from '@/shared/constants/routes';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import React, { FC } from 'react';
@@ -14,7 +13,7 @@ const Categories: FC<CategoriesProps> = ({ categories, articleSlug }) => {
     <CategoriesWrapper>
       {categories.map((i) => (
         <CategoriesItem key={`article-${articleSlug}-categories-${i.slug}`}>
-          <Link href={ROUTES.ARTICLES.BY_CATEGORY(i.slug)}>{i.name}</Link>
+          <Link href={`${process.env.NEXT_PUBLIC_DOMAIN}?tags=${i.slug}`}>{i.name}</Link>
         </CategoriesItem>
       ))}
     </CategoriesWrapper>

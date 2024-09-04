@@ -4,7 +4,7 @@ import { useArticles } from '@/entities/article/model/useArticles';
 import ArticleCard from '@/entities/article/ui/ArticleCard';
 import SiderMobile from '@/features/sider/ui/SiderMobile';
 import Pagination from '@/shared/ui/Pagination';
-import { H1 } from '@/shared/ui/Texts';
+import { H1, H3 } from '@/shared/ui/Texts';
 import styled from '@emotion/styled';
 import { notFound } from 'next/navigation';
 import React from 'react';
@@ -21,9 +21,11 @@ const Articles = () => {
       <Title>All erotic stories</Title>
       <SiderMobileStyled />
       <Content>
+        {data.pages[0].total === 0 && <H3>Such stories not found :(</H3>}
         {data.pages.map((page, pageIndex) => (
           <Page key={`page-${pageIndex}`}>
-            {page.data && page.data.map((article) => <ArticleCard key={article.id} {...article} />)}
+            {page.data &&
+              page.data.map((article) => <ArticleCard key={article.id} data={article} />)}
           </Page>
         ))}
       </Content>

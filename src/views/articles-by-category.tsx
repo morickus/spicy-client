@@ -28,7 +28,8 @@ const ArticlesByCategory: FC<ArticlesByCategoryProps> = ({ slug, title }) => {
       <Content>
         {data.pages.map((page, pageIndex) => (
           <Page key={`page-${pageIndex}`}>
-            {page.data && page.data.map((article) => <ArticleCard key={article.id} {...article} />)}
+            {page.data &&
+              page.data.map((article) => <ArticleCard key={article.id} data={article} />)}
           </Page>
         ))}
       </Content>

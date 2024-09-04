@@ -29,6 +29,16 @@ const AntdThemeProvider = ({ children }: { children: ReactNode }) => (
           controlHeightSM: 32,
           paddingBlockLG: 12,
         },
+        Tag: {
+          colorPrimary: 'rgb(255,255,255)',
+          colorPrimaryActive: 'rgb(83,87,91)',
+          colorPrimaryHover: 'rgb(83,87,91)',
+          defaultBg: 'rgb(47,49,51)',
+          defaultColor: 'rgb(255,255,255)',
+          marginXS: 0,
+          borderRadiusSM: 6,
+          fontFamily: 'Inter, sans-serif',
+        },
       },
     }}
   >

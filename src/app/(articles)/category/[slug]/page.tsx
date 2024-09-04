@@ -1,7 +1,4 @@
-import {
-  articlesControllerFindByCategory,
-  categoriesControllerFindOne,
-} from '@/shared/api/generated';
+import { articlesControllerFindAll, categoriesControllerFindOne } from '@/shared/api/generated';
 import ArticlesByCategory from '@/views/articles-by-category';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import type { Metadata, ResolvingMetadata } from 'next';
@@ -30,8 +27,8 @@ const ArticlesByCategoryPage = async ({ params: { slug } }: { params: { slug: st
   const queryClient = new QueryClient();
 
   await queryClient.prefetchInfiniteQuery({
-    queryKey: [`articles-by-category`, slug],
-    queryFn: ({ pageParam }) => articlesControllerFindByCategory(slug, { page: pageParam }),
+    queryKey: [`articles`, { tags: [slug] }],
+    queryFn: ({ pageParam }) => articlesControllerFindAll({ page: pageParam, tags: [slug] }),
     initialPageParam: 1,
   });
 

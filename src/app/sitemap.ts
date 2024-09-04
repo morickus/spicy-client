@@ -1,8 +1,4 @@
-import {
-  ArticleAllResponseDto,
-  articlesControllerFindAll,
-  categoriesControllerFindAll,
-} from '@/shared/api/generated';
+import { ArticleAllResponseDto, articlesControllerFindAll } from '@/shared/api/generated';
 import { MetadataRoute } from 'next';
 import * as process from 'node:process';
 
@@ -31,14 +27,8 @@ async function getAllArticles(): Promise<ArticleAllResponseDto[]> {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
-    const categories = (await categoriesControllerFindAll()) || [];
     const articles = await getAllArticles();
     const URL = process.env.NEXT_PUBLIC_DOMAIN || 'https://spicy.pub';
-
-    const categoriesRoutes = categories.map(({ slug }) => ({
-      url: `${URL}/category/${slug}`,
-      lastModified: new Date().toISOString(),
-    }));
 
     const articlesRoutes = articles.map(({ slug, updatedAt }) => ({
       url: `${URL}/article/${slug}`,
@@ -50,7 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date().toISOString(),
     }));
 
-    return [...routes, ...categoriesRoutes, ...articlesRoutes];
+    return [...routes, ...articlesRoutes];
   } catch (error) {
     console.error('Error creating sitemap:', error);
     return [];

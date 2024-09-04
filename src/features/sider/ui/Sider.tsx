@@ -5,7 +5,7 @@ import { CategoryList } from '@/entities/category/ui/CategoryList';
 import Footer from '@/features/footer/ui/Footer';
 import { TitleP3 } from '@/shared/ui/Texts';
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { Suspense } from 'react';
 
 const Sider = () => {
   const { data, error } = useCategories();
@@ -16,8 +16,10 @@ const Sider = () => {
 
   return (
     <Root>
-      <Title>Categories</Title>
-      <CategoryList categories={data} />
+      <Title>Tags</Title>
+      <Suspense>
+        <CategoryList categories={data} />
+      </Suspense>
       <Footer />
     </Root>
   );
