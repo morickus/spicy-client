@@ -79,11 +79,12 @@ const Item = styled(Tag.CheckableTag)`
     color: var(--black-color);
   }
 
+  &.ant-tag-checkable.ant-tag-checkable-checked:hover {
+    color: var(--black-color);
+    background-color: rgb(255, 255, 255);
+  }
+
   @media (hover: none) {
-    &.ant-tag-checkable.ant-tag-checkable-checked:hover {
-      color: var(--black-color);
-      background-color: rgb(255, 255, 255);
-    }
     &.ant-tag-checkable:not(.ant-tag-checkable-checked):hover {
       color: var(--white-color);
       background-color: ${(p) => p.theme.token.Tag?.defaultBg};

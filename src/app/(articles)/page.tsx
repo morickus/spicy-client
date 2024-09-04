@@ -1,7 +1,6 @@
 import { articlesControllerFindAll } from '@/shared/api/generated';
 import Articles from '@/views/articles';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { Suspense } from 'react';
 
 const ArticlesPage = async ({
   searchParams,
@@ -23,9 +22,7 @@ const ArticlesPage = async ({
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<div>Loading articles...</div>}>
-        <Articles />
-      </Suspense>
+      <Articles />
     </HydrationBoundary>
   );
 };
